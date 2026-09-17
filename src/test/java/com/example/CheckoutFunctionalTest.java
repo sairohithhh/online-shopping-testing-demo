@@ -38,4 +38,19 @@ class CheckoutFunctionalTest {
                 () -> new OrderService(inventory).checkout(cart)
         );
     }
+    @Test
+void customerCannotCheckoutWithEmptyCart() {
+    InMemoryInventoryService inventory =
+        new InMemoryInventoryService();
+
+    ShoppingCart emptyCart = new ShoppingCart();
+
+    OrderService orderService =
+        new OrderService(inventory);
+
+    assertThrows(
+        IllegalStateException.class,
+        () -> orderService.checkout(emptyCart)
+    );
+}
 }
